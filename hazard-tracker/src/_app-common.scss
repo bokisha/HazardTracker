@@ -45,7 +45,7 @@
     }
 }
 
-// Cutom classes
+// Custom classes
 
 .QRData{
     margin-top: 60%;
@@ -53,4 +53,20 @@
     font-size: 20;
     vertical-align: center;
     horizontal-align: center;
+}
+
+.add-hazard {
+    border-radius: 50%;
+    width: 45;
+    height: 45;
+    background-color: const(blue);
+    color: white;
+    position: fixed;
+    bottom: 10;
+    right: 10;
+}
+
+.add-hazard:active {
+    background-color: white;
+    color: const(blue);
 }

@@ -2,8 +2,8 @@
     <Label text="Scan For Entry/Exit"></Label>
 </ActionBar>
 
-<GridLayout class="page__content">
-    <Label class="h1 text-center" text="QR Scanner, tap the icon" ></Label>
-    <Label class="page__content-icon fas" text="&#xf029;" (tap)="onScan()"></Label>
-    <Label class="QRData" text="QR code data: {{messageFromQrCode}}"></Label>
+<GridLayout class="page__content" (swipe)="changePage($event)" (tap)="onScan()">
+    <Label class="icon fas" text="&#xf029;"></Label>
+    <Label class="h1 text-center" text="Tap to scan" ></Label>
+    <Label *ngIf="messageFromQrCode !== undefined" class="QRData" text="QR code data: {{messageFromQrCode}}"></Label>
 </GridLayout>

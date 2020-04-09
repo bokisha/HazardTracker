@@ -2,11 +2,11 @@
 
 namespace DAL.Entities
 {
-    // initial entity, rename if needed
-    public class UserInfoEntity : IEntity
+    public class UserEntity : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        // add other properties
+        public string Imei { get; set; }
+        public bool IsInfected { get; set; }
     }
 }

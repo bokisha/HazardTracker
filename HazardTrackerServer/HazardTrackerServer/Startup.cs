@@ -30,7 +30,9 @@ namespace HazardTrackerServer
 
             // Repositories
             services.AddScoped(typeof(IEntityRepository<>), typeof(EntityRepository<>));
-            services.AddScoped<IUserInfoRepository, UserInfoRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ILocationRepository, LocationRepository>();
+            services.AddScoped<IVisitationRepository, VisitationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

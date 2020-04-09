@@ -13,7 +13,9 @@ namespace DAL
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<UserInfoEntity>(entity => { entity.HasKey(e => e.Id); });
+            modelBuilder.Entity<UserEntity>(entity => { entity.HasKey(e => e.Id); });
+            modelBuilder.Entity<LocationEntity>(entity => { entity.HasKey(e => e.Id); });
+            modelBuilder.Entity<VisitationEntity>(entity => { entity.HasKey(e => e.Id);});
         }
     }
 }

@@ -10,9 +10,9 @@ namespace HazardTrackerServer.Controllers
     [Route("[controller]")]
     public class UserInfoController : ControllerBase
     {
-        private readonly IUserInfoRepository _userInfoRepository;
+        private readonly IUserRepository _userInfoRepository;
 
-        public UserInfoController(IUserInfoRepository userInfoRepository)
+        public UserInfoController(IUserRepository userInfoRepository)
         {
             _userInfoRepository = userInfoRepository;
         }
@@ -20,7 +20,7 @@ namespace HazardTrackerServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            IList<UserInfoEntity> userInfo = await _userInfoRepository.GetAllAsync();
+            IList<UserEntity> userInfo = await _userInfoRepository.GetAllAsync();
 
             // add dtos and mappings between dtos and entities
             return Ok(userInfo);

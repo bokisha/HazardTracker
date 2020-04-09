@@ -2,7 +2,7 @@
 
 namespace DAL.Repositories.Interfaces
 {
-    public interface IUserInfoRepository : IEntityRepository<UserInfoEntity>
+    public interface ILocationRepository : IEntityRepository<LocationEntity>
     {
     }
 }

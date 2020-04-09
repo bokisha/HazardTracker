@@ -46,5 +46,10 @@ namespace DAL.Repositories
             DbSet.Update(entity);
             DbContext.SaveChanges();
         }
+
+        public T GetById(int id)
+        {
+            return DbSet.Find(id);
+        }
     }
 }

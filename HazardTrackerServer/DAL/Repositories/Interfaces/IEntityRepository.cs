@@ -8,6 +8,7 @@ namespace DAL.Repositories.Interfaces
     {
         IEnumerable<T> GetAll();
         Task<List<T>> GetAllAsync();
+        T GetById(int id);
         void Create(T entity);
         void Update(T entity);
         void Delete(T entity);

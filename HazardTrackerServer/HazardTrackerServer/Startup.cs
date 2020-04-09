@@ -28,6 +28,8 @@ namespace HazardTrackerServer
 
             services.AddControllers();
 
+            services.AddScoped<IDatabaseSeeder, DatabaseSeeder>();
+
             // Repositories
             services.AddScoped(typeof(IEntityRepository<>), typeof(EntityRepository<>));
             services.AddScoped<IUserRepository, UserRepository>();

@@ -5,7 +5,6 @@ namespace DAL.Entities
     public class UserEntity : IEntity
     {
         public int Id { get; set; }
-        public string Name { get; set; }
         public string Imei { get; set; }
         public bool IsInfected { get; set; }
     }

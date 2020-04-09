@@ -11,14 +11,13 @@ namespace HazardTrackerServer
         {
             IHost host = CreateHostBuilder(args).Build();
 
-            //Create database
+            //Seed database
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
 
-                var dbContext = services.GetRequiredService<HazardTrackerDbContext>();
-                dbContext.Database.EnsureDeleted();
-                dbContext.Database.EnsureCreated();
+                var seeder = services.GetRequiredService<IDatabaseSeeder>();
+                seeder.Seed();
             }
 
             host.Run();

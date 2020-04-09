@@ -9,6 +9,6 @@ namespace DAL.Entities
         public string Imei { get; set; }
         public DateTime EnterTime { get; set; }
         public DateTime ExitTime { get; set; }
-        public int LocationId { get; set; }
+        public LocationEntity Location { get; set; }
     }
 }

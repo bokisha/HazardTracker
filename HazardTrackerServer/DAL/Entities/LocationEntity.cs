@@ -1,4 +1,5 @@
-﻿using DAL.Entities.Interfaces;
+﻿using System.Collections.Generic;
+using DAL.Entities.Interfaces;
 
 namespace DAL.Entities
 {
@@ -9,5 +10,7 @@ namespace DAL.Entities
         public string Address { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+
+        public ICollection<VisitationEntity> Visitations { get; set; }
     }
 }

@@ -33,10 +33,10 @@ namespace DAL
             var location2 = new LocationEntity { Name = "Tempo", Address = "Ulica2", Latitude = 0, Longitude = 0 };
             _locationRepository.Create(location2);
 
-            var visitation1 = new VisitationEntity {Imei = "ooooo", LocationId = location1.Id};
+            var visitation1 = new VisitationEntity {Imei = "ooooo", Location = location1};
             _visitationRepository.Create(visitation1);
 
-            var visitation2 = new VisitationEntity { Imei = "lllll", LocationId = location2.Id };
+            var visitation2 = new VisitationEntity { Imei = "lllll", Location = location2 };
             _visitationRepository.Create(visitation2);
         }
     }

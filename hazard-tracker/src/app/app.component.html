@@ -1,0 +1,54 @@
+<GridLayout (swipe)="swipe($event)">
+    <BottomNavigation [selectedIndex]="selectedPage">
+        <TabStrip>
+            <!-- App Info -->
+            <TabStripItem class="navigation__item">
+                <Image src="font://&#xf05a;" class="fas t-36"></Image>
+            </TabStripItem>
+            <!-- Map -->
+            <!-- <TabStripItem class="navigation__item">
+                <Image src="font://&#xf279;" class="far t-36"></Image>
+            </TabStripItem> -->
+            <!-- Status -->
+            <TabStripItem class="navigation__item">
+                <Image src="font://&#xf004;" class="fas t-36"></Image>
+            </TabStripItem>
+            <!-- QR -->
+            <TabStripItem class="navigation__item">
+                <Image src="font://&#xf029;" class="fas t-36"></Image>
+            </TabStripItem>
+            <!-- Visits -->
+            <TabStripItem class="navigation__item">
+                <Image src="font://&#xf3c5;" class="fas t-36"></Image>
+            </TabStripItem>
+            <!-- Notifications -->
+            <TabStripItem class="navigation__item">
+                <Image src="font://&#xf0f3;" class="fas t-36"></Image>
+            </TabStripItem>
+        </TabStrip>
+
+        <TabContentItem>
+            <page-router-outlet name="infoTab"></page-router-outlet>
+        </TabContentItem>
+
+        <!-- <TabContentItem>
+            <page-router-outlet name="mapTab"></page-router-outlet>
+        </TabContentItem> -->
+
+        <TabContentItem>
+            <page-router-outlet name="statusTab"></page-router-outlet>
+        </TabContentItem>
+
+        <TabContentItem>
+            <page-router-outlet name="qrTab"></page-router-outlet>
+        </TabContentItem>
+
+        <TabContentItem>
+            <page-router-outlet name="visitationsTab"></page-router-outlet>
+        </TabContentItem>
+
+        <TabContentItem>
+            <page-router-outlet name="notificationsTab"></page-router-outlet>
+        </TabContentItem>
+    </BottomNavigation>
+</GridLayout>

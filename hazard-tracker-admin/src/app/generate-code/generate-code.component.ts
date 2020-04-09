@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '../shared/location';
+import { LocationService } from '../shared/location.service';
 
 @Component({
   selector: 'hazard-generate-code',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GenerateCodeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private locationService: LocationService) { }
 
   ngOnInit() {
   }
 
+  addLocation(newLocationName : string, newLocationAddress: string) {
+    let location = new Location(newLocationName, newLocationAddress);
+
+    this.locationService.addLocation(location).subscribe();
+  }
 }

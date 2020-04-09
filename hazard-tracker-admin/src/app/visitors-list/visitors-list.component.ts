@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VisitorsService, Visitor } from '../visitors.service';
+import { VisitorsService, Visitor } from '../shared/visitors.service';
 
 @Component({
     selector: 'hazard-visitors-list',

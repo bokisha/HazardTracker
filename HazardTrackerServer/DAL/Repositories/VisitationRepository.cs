@@ -35,6 +35,12 @@ namespace DAL.Repositories
             return visitationsForImei.ToList();
         }
 
+        public IEnumerable<VisitationEntity> GetAllVisitationsForLocation(int locationId)
+        {
+            IQueryable<VisitationEntity> visitationsForLocation = DbSet.Where(v => v.Location.Id == locationId);
+            return visitationsForLocation.ToList();
+        }
+
         public VisitationEntity GetById(int id)
         {
             return DbSet.Find(id);

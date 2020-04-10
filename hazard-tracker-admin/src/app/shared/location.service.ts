@@ -1,16 +1,16 @@
 import { ConfigurationService } from './configuration.service';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Location } from '../shared/location';
-
+import { prepareEventListenerParameters } from '@angular/compiler/src/render3/view/template';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LocationService {
 
-    locationApiUrl = this.configurationService.getApiUrl() + 'location';
+    locationApiUrl = this.configurationService.getApiUrl() + 'location/';
 
     constructor(private http: HttpClient, private configurationService: ConfigurationService) { }
 
@@ -19,5 +19,16 @@ export class LocationService {
 
         return this.http.post<Location>(this.locationApiUrl,
             location);
+    }
+
+    generatePdf(location: Location): Observable<Blob> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+              Accept: 'application/pdf'
+            }),
+            responseType: 'blob'
+          };
+
+        return this.http.get<Blob>(this.locationApiUrl + 'generate?id=' + location.id, httpOptions);
     }
 }

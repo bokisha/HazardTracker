@@ -86,7 +86,9 @@ namespace HazardTrackerServer.Controllers
             VisitationEntity visitedAndCurrentLocation = _visitationRepository.GetLatestVisitation(visitationDto.Imei, visitationDto.LocationId);
 
             // in the event user didn't scan qr code on entry, but did so on exit
-            if (visitedAndCurrentLocation == null)
+            // or user passed through the shop 2 hours later again
+            TimeSpan ts = DateTime.Now - visitedAndCurrentLocation.EnterTime;
+            if (visitedAndCurrentLocation == null || ts.Hours > 2)
             {
                 return Post(visitationDto);
             }

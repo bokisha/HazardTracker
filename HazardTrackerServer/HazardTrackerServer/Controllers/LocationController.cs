@@ -76,6 +76,8 @@ namespace HazardTrackerServer.Controllers
 
         private PdfDocument GeneratePdf(Bitmap qrCodeImage)
         {
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
             PdfDocument document = new PdfDocument();
             document.Info.Title = "QR Code";
             PdfPage page = document.AddPage();

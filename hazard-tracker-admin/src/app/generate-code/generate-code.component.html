@@ -1,8 +1,12 @@
+<div *ngIf="!location">
+        <span>Name</span>
+        <input type="text" #newLocationName>
+        <span>Address</span>
+        <input type="text" #newLocationAddress>
 
-<div *ngIf='!location'>
-Name:<input #newLocationName>
-Address: <input #newLocationAddress>
-<button (click)="addLocation(newLocationName.value, newLocationAddress.value)">Add</button>
+        <button (click)="addLocation(newLocationName.value, newLocationAddress.value)">Add</button>
 </div>
 
-<button (click)="generatePdf()" *ngIf='location'>Generate pdf</button>
+<div *ngIf="location">
+    <button (click)="generatePdf()">Generate pdf</button>
+</div>

@@ -8,6 +8,7 @@ namespace DAL.Entities
     {
         public int Id { get; set; }
         public string Imei { get; set; }
+        public string DeviceToken { get; set; }
         public bool IsInfected { get; set; }
         public DateTime PotentialInfectionDate { get; set; }
     }

@@ -34,7 +34,7 @@ namespace HazardTrackerServer.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
-        public IActionResult Post(LocationDto locationDto)
+        public IActionResult Post([FromBody]LocationDto locationDto)
         {
             var location = new LocationEntity
             {

@@ -11,11 +11,10 @@ export class GenerateCodeComponent implements OnInit {
 
   constructor(private locationService: LocationService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  addLocation(newLocationName : string, newLocationAddress: string) {
-    let location = new Location(newLocationName, newLocationAddress);
+  addLocation(newLocationName: string, newLocationAddress: string) {
+    const location = new Location(newLocationName, newLocationAddress);
 
     this.locationService.addLocation(location).subscribe();
   }

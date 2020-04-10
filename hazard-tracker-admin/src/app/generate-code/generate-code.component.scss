@@ -11,6 +11,12 @@
 }
 
 div {
+    padding: 50px;
+
+    & > p {
+        margin-bottom: 10px;
+    }
+
     & > *:not(span) {
         margin: 10px 0;
     }

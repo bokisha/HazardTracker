@@ -21,7 +21,10 @@ export class ItemDetailComponent implements OnInit {
 
     ngOnInit(): void {
         const id = +this._route.snapshot.params.id;
-        this.item = this._data.getVisitation(id);
+        this._data.getVisitationById(id).subscribe(
+            (data) => this.item = data,
+            (error) => console.error(error)
+        );
     }
 
     onBackTap(): void {

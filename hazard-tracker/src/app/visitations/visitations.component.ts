@@ -1,4 +1,3 @@
-import { VisitationDto } from './../shared/visitations.service';
 import { Component, OnInit } from '@angular/core';
 
 import { LocationsService, Location } from '../shared/locations.service';
@@ -20,15 +19,15 @@ export class VisitationsComponent implements OnInit {
     constructor(private visitationsService: VisitationsService,
                 private locationsService: LocationsService,
                 private pageService: PageService) {
-        this.imei = '990000862471854';
+        this.imei = 'ooooo';
      }
 
     ngOnInit(): void {
-        let a = this.visitationsService.getAllVisitationsForImei(this.imei);
-        let b = this.visitationsService.getAllVisitationsForLocation(this.getLocation(1));
-        let c = this.visitationsService.getLatestVisitation({imei: "asdf", locationId: 1});
+        this.visitationsService.getAllVisitationsForImei(this.imei).subscribe(
+            (data) => this.visitations = data,
+            (error) => console.log(error)
+        );
 
-        this.visitations = this.visitationsService.getVisitationsByImei(this.imei);
         this.visitedLocations = this.locationsService.getLocationsByIds(
             this.visitations.map(({locationId}) => locationId));
     }

@@ -5,6 +5,7 @@ nav {
     background-color: $primary;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 50px;
     box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.25);
 
@@ -17,7 +18,7 @@ nav {
         line-height: 30px;
     }
 
-    & > a:hover {
+    & > a:hover, & > a.active {
         display: inline-block;
         color: $primary;
         background-color: white;

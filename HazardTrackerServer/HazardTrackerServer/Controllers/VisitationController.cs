@@ -34,7 +34,7 @@ namespace HazardTrackerServer.Controllers
             return _visitationRepository.GetAllVisitationsForLocation(locationId).ToList();
         }
 
-        [HttpGet("getLatestVisitation?imei={imei}&locationId={locationId}")]
+        [HttpGet("getLatestVisitation")]
         public ActionResult<VisitationEntity> GetLatestVisitation(string imei, int locationId)
         {
             return _visitationRepository.GetLatestVisitation(imei, locationId);

@@ -70,3 +70,13 @@
     background-color: white;
     color: const(blue);
 }
+
+.Info{
+    font-size: 20;
+    horizontal-align: justify;
+    color: const(grey);
+    &-heading{
+        font-size: 30;
+        font-weight: 600;
+    }
+}

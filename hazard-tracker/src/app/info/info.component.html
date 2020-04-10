@@ -2,7 +2,26 @@
     <Label text="App Information"></Label>
 </ActionBar>
 
-<GridLayout class="page__content">
-    <Label class="page__content-icon fas" text="&#xf05a;"></Label>
-    <Label class="page__content-placeholder" text="<!-- Page content goes here -->"></Label>
-</GridLayout>
+<ScrollView class="Info" orientation="vertical">
+    <StackLayout>
+        <Label class="m-10 Info-heading" text="Goal and purpose" textWrap="true"></Label>
+        <Label class="m-10 Info"
+            text="HazardTracker is a mobile application intended to increase awareness of potential health risks during pandemic times by registering the presence of people in public places (supermarkets, restaurants, coffee shops, etc)."
+            textWrap="true"></Label>
+
+        <Label class="m-10 Info-heading" text="How HazardTracker works" textWrap="true"></Label>
+        <Label class="m-10 Info"
+            text="The application holds information about people, such as their device's IMEI (unique identification number) and timelines of their movements. This information is obtained by scanning QR codes upon entering and leaving the location. Collecting this type of information is essential so that the users can later be informed in case they were exposed to potential contamination reported by an individual who visited the same place at the same time and marked themselves as infected. The data gathered by HazardTracker is completely unrelated to the user, and users private information is not gathered as well."
+            textWrap="true"></Label>
+
+        <Label class="m-10 Info-heading" text="Intended use" textWrap="true"></Label>
+        <Label class="m-10 Info"
+            text="Prevention of the spread. Built-in application notifications will make sure that every contamination report is communicated to all potentially affected parties. Another benefit of this system is a real-time tracker of the number of registered users in public places. This feature ensures that the traffic is reduced in those places since users will hopefully choose the least populated areas to go to. "
+            textWrap="true"></Label>
+
+        <Label class="m-10 Info-heading" text="Dev team" textWrap="true"></Label>
+        <Label class="m-10 Info"
+            text="A team based in Belgrade, Serbia, consisting of five developers and one quality assurance analyst. Our goal is to make the world a better-prepared place in case of a similar situation we currently find ourselves in!"
+            textWrap="true"></Label>
+    </StackLayout>
+</ScrollView>

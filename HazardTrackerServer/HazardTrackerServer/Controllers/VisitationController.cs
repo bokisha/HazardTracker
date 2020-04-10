@@ -47,39 +47,48 @@ namespace HazardTrackerServer.Controllers
             return visitationEntity;
         }
 
-       
-        [HttpPost]
-        public IActionResult Post([FromBody]VisitationDto visitationDto)
+
+        [HttpPost("addVisitation")]
+        public IActionResult Post([FromBody] VisitationDto visitationDto)
         {
+            LocationEntity location = _locationRepository.GetById(visitationDto.LocationId);
+            if (location == null) return BadRequest("Invalid location id.");
+
             try
             {
-                LocationEntity location = _locationRepository.GetById(visitationDto.LocationId);
-
-                try
+                var visitation = new VisitationEntity
                 {
-                    var visitation = new VisitationEntity
-                    {
-                        Id = visitationDto.Id,
-                        Imei = visitationDto.Imei,
-                        EnterTime = visitationDto.EnterTime,
-                        ExitTime = visitationDto.ExitTime,
-                        Location = location
-                    };
-                    _visitationRepository.Create(visitation);
+                    Imei = visitationDto.Imei,
+                    EnterTime = DateTime.Now,
+                    ExitTime = DateTime.Now.AddHours(2), // this will be overwriten in updateVisitation
+                    Location = location
+                };
+                _visitationRepository.Create(visitation);
 
-                    return CreatedAtAction(nameof(GetById), new { id = visitation.Id }, visitation);
-
-                }
-                catch (InvalidOperationException e)
-                {
-                    Console.WriteLine(e);
-                    throw new InvalidOperationException($"Could not create a visitation record. {e.Message}");
-                }
+                return CreatedAtAction(nameof(GetById), new {id = visitation.Id}, visitation);
             }
             catch (InvalidOperationException e)
             {
-                throw new InvalidOperationException($"QR code provided a location with invalid ID. {e.Message}");
+                Console.WriteLine(e);
+                throw new InvalidOperationException($"Could not create a visitation record. {e.Message}");
             }
+            
+        }
+
+        [HttpPut("updateVisitation")]
+        public IActionResult Put([FromBody] VisitationDto visitationDto)
+        {
+            VisitationEntity visitedAndCurrentLocation = _visitationRepository.GetLastestVisitation(visitationDto.Imei, visitationDto.LocationId);
+
+            // in the event user didn't scan qr code on entry, but did so on exit
+            if (visitedAndCurrentLocation == null)
+            {
+                return Post(visitationDto);
+            }
+
+            visitedAndCurrentLocation.ExitTime = DateTime.Now;
+            _visitationRepository.Update(visitedAndCurrentLocation);
+            return Ok();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DAL.Entities;
 
 namespace DAL.Repositories.Interfaces
@@ -7,5 +8,6 @@ namespace DAL.Repositories.Interfaces
     {
         IEnumerable<VisitationEntity> GetAllVisitationsForImei(string imei);
         IEnumerable<VisitationEntity> GetAllVisitationsForLocation(int locationId);
+        VisitationEntity GetLastestVisitation(string imei, int locationId);
     }
 }

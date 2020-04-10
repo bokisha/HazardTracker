@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DAL.Entities;
@@ -29,6 +30,12 @@ namespace DAL.Repositories
             DbContext.SaveChanges();
         }
 
+        public void Update(VisitationEntity entity)
+        {
+            DbSet.Update(entity);
+            DbContext.SaveChanges();
+        }
+
         public IEnumerable<VisitationEntity> GetAllVisitationsForImei(string Imei)
         {
             IQueryable<VisitationEntity> visitationsForImei = DbSet.Where(v => v.Imei == Imei);
@@ -39,6 +46,12 @@ namespace DAL.Repositories
         {
             IQueryable<VisitationEntity> visitationsForLocation = DbSet.Where(v => v.Location.Id == locationId);
             return visitationsForLocation.ToList();
+        }
+
+        public VisitationEntity GetLastestVisitation(string imei, int locationId)
+        {
+            return DbSet.Where(v => v.Imei == imei && v.Location.Id == locationId)
+                        .OrderByDescending(v => v.EnterTime).First();
         }
 
         public VisitationEntity GetById(int id)

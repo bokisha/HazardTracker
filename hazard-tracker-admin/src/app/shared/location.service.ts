@@ -21,13 +21,12 @@ export class LocationService {
     }
 
     generatePdf(location: Location): Observable<Blob> {
-        const httpOptions = {
-            headers: new HttpHeaders({
-              Accept: 'application/pdf'
-            }),
+
+          const requestOptions: object = {
+            headers: new HttpHeaders().append('Content-Type', 'application/json'),
             responseType: 'blob'
           };
 
-        return this.http.get<Blob>(this.locationApiUrl + 'generate?id=' + location.id, httpOptions);
+          return this.http.get<Blob>(this.locationApiUrl + 'generate?id=' + location.id, requestOptions);
     }
 }

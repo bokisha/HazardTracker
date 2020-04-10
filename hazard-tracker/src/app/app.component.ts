@@ -83,7 +83,7 @@ export class AppComponent implements OnInit {
                         return;
                     }
 
-                    this.usersService.postHazard('', +promptResult.text);
+                    this.usersService.postHazard('ooooo', +promptResult.text);
                 });
             };
 

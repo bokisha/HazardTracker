@@ -1,4 +1,6 @@
-﻿using DAL.Entities.Interfaces;
+﻿using System;
+
+using DAL.Entities.Interfaces;
 
 namespace DAL.Entities
 {
@@ -7,5 +9,6 @@ namespace DAL.Entities
         public int Id { get; set; }
         public string Imei { get; set; }
         public bool IsInfected { get; set; }
+        public DateTime PotentialInfectionDate { get; set; }
     }
 }

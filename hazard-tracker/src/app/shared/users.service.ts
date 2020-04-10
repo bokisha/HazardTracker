@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface User {
+    id: number;
     imei: string;
-    potentiallyInfected: boolean;
+    isInfected: boolean;
     potentialInfectionDate: Date;
 }
 
@@ -12,29 +14,45 @@ export interface User {
 })
 export class UsersService {
 
-    apiLocation = 'api/user/';
+    apiLocation = 'http://localhost:5000/api/userinfo/';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     postHazard(imei: string, numberOfDays: number): void {
-        const user = this.getUser(imei);
+        this.getUser(imei).subscribe(
+            (data) => {
+                const user = data;
 
-        user.potentiallyInfected = true;
+                if (user === undefined) {
+                    throw new Error('Error getting user information');
+                }
 
-        const date = new Date();
-        date.setDate(date.getDate() - numberOfDays);
-        user.potentialInfectionDate = date;
+                user.isInfected = true;
 
-        this.http.post<User>(this.apiLocation, user);
-    }
+                const date = new Date();
+                date.setDate(date.getDate() - numberOfDays);
+                user.potentialInfectionDate = date;
 
-    getUser(imei: string): User {
-        let user: User;
-        this.http.get<User>(this.apiLocation + imei).subscribe(
-            (data) => user = data,
+                this.http.post<User>(this.apiLocation, user).subscribe();
+            },
             (error) => console.error(error)
         );
+    }
 
-        return user;
+    // Connection-specific DNS Suffix  . :
+    // Link-local IPv6 Address . . . . . : fe80::d1e1:585b:7d9f:9f81%12
+    // IPv4 Address. . . . . . . . . . . : 192.168.1.16
+    // Subnet Mask . . . . . . . . . . . : 255.255.255.0
+    // Default Gateway . . . . . . . . . : fe80::1%12
+    //                                     192.168.1.1
+
+    getUser(imei: string): Observable<User> {
+        const api = this.apiLocation + imei;
+
+        try {
+        return this.http.get<User>('http://192.168.1.16:5000/api/userinfo/ooooo', {});
+        } catch (e) {
+            const a = e;
+        }
     }
 }

@@ -1,3 +1,4 @@
+import { DeviceInformationService } from './shared/deviceInformation.service';
 import { Component, OnInit } from '@angular/core';
 
 import { SwipeGestureEventData, SwipeDirection } from 'tns-core-modules/ui/gestures';
@@ -33,7 +34,8 @@ export class AppComponent implements OnInit {
     }
 
     constructor(private pageService: PageService,
-                private usersService: UsersService) { }
+                private usersService: UsersService,
+                private deviceInformationService: DeviceInformationService) { }
 
     ngOnInit(): void {
         firebase.init({
@@ -52,6 +54,8 @@ export class AppComponent implements OnInit {
                 console.log(`firebase.init error: ${error}`);
             }
         );
+
+        console.log('IMEI: ' + this.deviceInformationService.getDeviceImei());
 
         this._selectedPage = 2;
 

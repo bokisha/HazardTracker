@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SwipeGestureEventData, SwipeDirection } from 'tns-core-modules/ui/gestures';
-import { prompt, PromptResult, PromptOptions, inputType, capitalizationType, confirm } from 'tns-core-modules/ui/dialogs';
+import { alert, prompt, PromptResult, PromptOptions, inputType, capitalizationType, confirm } from 'tns-core-modules/ui/dialogs';
+import { Message } from 'nativescript-plugin-firebase/messaging';
 
 import { PageService } from './shared/page.service';
 import { UsersService } from './shared/users.service';
@@ -37,16 +38,20 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         firebase.init({
-            onMessageReceivedCallback: (message: string) => {
-                console.log(`Title: ${message}`);
+            onMessageReceivedCallback: (message: Message) => {
+                alert({
+                    message: message.data.message,
+                    okButtonText: 'OK'
+                });
             },
             onPushTokenReceivedCallback: (token) => {
                 this.usersService.postToken('ooooo', token);
                 console.log('token ' + token);
-            }
+            },
+            showNotificationsWhenInForeground: true
         }).then(
             () => {
-                console.log('firebase.init done!');
+                console.log('firebase.init done');
             },
             (error) => {
                 console.log(`firebase.init error: ${error}`);

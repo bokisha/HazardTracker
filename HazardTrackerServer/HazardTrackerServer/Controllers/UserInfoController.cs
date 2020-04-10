@@ -8,6 +8,7 @@ using DAL.Repositories.Interfaces;
 using CorePush.Google;
 using System.Linq;
 using System;
+using Newtonsoft.Json;
 
 namespace HazardTrackerServer.Controllers
 {
@@ -40,7 +41,7 @@ namespace HazardTrackerServer.Controllers
         public ActionResult<UserEntity> Get(string imei)
         {
             var user = _userInfoRepository.GetByImei(imei);
-            
+
             if (user == null)
                 return NotFound();
 
@@ -65,7 +66,6 @@ namespace HazardTrackerServer.Controllers
         public IActionResult PutToken(UserEntity user)
         {
             _userInfoRepository.Update(user);
-
             return Ok();
         }
 
@@ -85,10 +85,10 @@ namespace HazardTrackerServer.Controllers
             IEnumerable<LocationEntity> locations = _locationRepository.GetAll();
             IList<UserEntity> exposedUsers = new List<UserEntity>();
 
-            foreach(LocationEntity location in locations)
+            foreach (LocationEntity location in locations)
             {
                 // for now just compare the dates
-                if(location.Visitations.Any(v => v.Imei == user.Imei && v.EnterTime.Date >= user.PotentialInfectionDate.Date && v.EnterTime.Date <= DateTime.Now.Date))
+                if (location.Visitations.Any(v => v.Imei == user.Imei && v.EnterTime.Date >= user.PotentialInfectionDate.Date && v.EnterTime.Date <= DateTime.Now.Date))
                 {
                     foreach (VisitationEntity visitation in location.Visitations.Where(v => v.Imei != user.Imei))
                     {
@@ -106,12 +106,33 @@ namespace HazardTrackerServer.Controllers
         {
             using (var fcm = new FcmSender(ServerKey, SenderId))
             {
-                object notification = "Infection warning";
+                var notification = new GoogleNotification
+                {
+                    Data = new GoogleNotification.DataPayload
+                    {
+                        Message = $"You have been hazarded! {DateTime.Now}"
+                    }
+                };
+
                 foreach (var user in users)
                 {
                     await fcm.SendAsync(user.DeviceToken, notification);
                 }
             }
         }
+    }
+
+    public class GoogleNotification
+    {
+        public class DataPayload
+        {
+            // Add your custom properties as needed
+            [JsonProperty("message")]
+            public string Message { get; set; }
+        }
+        [JsonProperty("priority")]
+        public string Priority { get; set; } = "high";
+        [JsonProperty("data")]
+        public DataPayload Data { get; set; }
     }
 }

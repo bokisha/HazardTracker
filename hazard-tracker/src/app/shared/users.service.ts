@@ -7,7 +7,7 @@ export interface User {
     id: number;
     imei: string;
     isInfected: boolean;
-    token: string;
+    deviceToken: string;
     potentialInfectionDate: Date;
 }
 
@@ -51,9 +51,9 @@ export class UsersService {
                     throw new Error('Error getting user information');
                 }
 
-                user.token = token;
+                user.deviceToken = token;
 
-                this.http.put<User>(this.baseUrl.getBaseUrl() + this.apiLocation + "token", user).subscribe();
+                this.http.put<User>(this.baseUrl.getBaseUrl() + this.apiLocation + 'token', user).subscribe();
             },
             (error) => console.error(error)
         );

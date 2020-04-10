@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "18663943388",
+    "firebase_url": "https://hazardtracker-e4e38.firebaseio.com",
+    "project_id": "hazardtracker-e4e38",
+    "storage_bucket": "hazardtracker-e4e38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18663943388:android:344adea573832b9d529819",
+        "android_client_info": {
+          "package_name": "org.nativescript.hazardtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18663943388-rq0504a22elga60j8re8i0ch3jfdba61.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZByio6jRof18hG-Q-yX4UiRn6i2dDMcE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18663943388-rq0504a22elga60j8re8i0ch3jfdba61.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

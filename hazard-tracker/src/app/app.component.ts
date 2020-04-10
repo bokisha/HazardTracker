@@ -6,6 +6,8 @@ import { prompt, PromptResult, PromptOptions, inputType, capitalizationType, con
 import { PageService } from './shared/page.service';
 import { UsersService } from './shared/users.service';
 
+const firebase = require("nativescript-plugin-firebase");
+
 @Component({
     selector: 'ns-app',
     templateUrl: 'app.component.html'
@@ -34,6 +36,22 @@ export class AppComponent implements OnInit {
                 private usersService: UsersService) { }
 
     ngOnInit(): void {
+        firebase.init({
+            onMessageReceivedCallback: (message: string) => {
+                console.log(`Title: ${message}`);
+              },
+              onPushTokenReceivedCallback: function(token) {
+                this.usersService.postToken("ooooo", token);
+              }
+          }).then(
+            () => {
+              console.log("firebase.init done");
+            },
+            error => {
+              console.log(`firebase.init error: ${error}`);
+            }
+          );
+
         this._selectedPage = 2;
 
         this.pageService.getPage().subscribe(

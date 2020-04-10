@@ -34,6 +34,12 @@ namespace HazardTrackerServer.Controllers
             return _visitationRepository.GetAllVisitationsForLocation(locationId).ToList();
         }
 
+        [HttpGet("getLatestVisitation?imei={imei}&locationId={locationId}")]
+        public ActionResult<VisitationEntity> GetLatestVisitation(string imei, int locationId)
+        {
+            return _visitationRepository.GetLatestVisitation(imei, locationId);
+        }
+
         [HttpGet("{id}")]
         public ActionResult<VisitationEntity> GetById(int id)
         {
@@ -46,7 +52,6 @@ namespace HazardTrackerServer.Controllers
 
             return visitationEntity;
         }
-
 
         [HttpPost("addVisitation")]
         public IActionResult Post([FromBody] VisitationDto visitationDto)
@@ -78,7 +83,7 @@ namespace HazardTrackerServer.Controllers
         [HttpPut("updateVisitation")]
         public IActionResult Put([FromBody] VisitationDto visitationDto)
         {
-            VisitationEntity visitedAndCurrentLocation = _visitationRepository.GetLastestVisitation(visitationDto.Imei, visitationDto.LocationId);
+            VisitationEntity visitedAndCurrentLocation = _visitationRepository.GetLatestVisitation(visitationDto.Imei, visitationDto.LocationId);
 
             // in the event user didn't scan qr code on entry, but did so on exit
             if (visitedAndCurrentLocation == null)

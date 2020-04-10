@@ -48,7 +48,7 @@ namespace DAL.Repositories
             return visitationsForLocation.ToList();
         }
 
-        public VisitationEntity GetLastestVisitation(string imei, int locationId)
+        public VisitationEntity GetLatestVisitation(string imei, int locationId)
         {
             return DbSet.Where(v => v.Imei == imei && v.Location.Id == locationId)
                         .OrderByDescending(v => v.EnterTime).First();

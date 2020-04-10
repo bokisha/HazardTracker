@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiService } from './api.service';
 
 export interface Visitation {
     id: number;
@@ -12,6 +15,50 @@ export interface Visitation {
     providedIn: 'root'
 })
 export class VisitationsService {
+
+    apiLocation = 'api/visitation/';
+
+    constructor(private http: HttpClient, private baseUrl: ApiService) { }
+
+    getAllVisitationsForImei(imei: string): Observable<Array<Visitation>> {
+        return this.http.get<Array<Visitation>>(this.baseUrl.getBaseUrl()
+        + this.apiLocation
+        + 'getAllVisitationsForImei/'
+        + imei);
+    }
+
+    getAllVisitationsForLocation(locationId: number): Observable<Array<Visitation>> {
+        return this.http.get<Array<Visitation>>(this.baseUrl.getBaseUrl()
+        + this.apiLocation
+        + 'getAllVisitationsForLocation/'
+        + locationId);
+    }
+
+    getLatestVisitation(visitationDto: Visitation): Observable<Visitation> {
+        return this.http.get<Visitation>(this.baseUrl.getBaseUrl()
+        + this.apiLocation
+        + 'getLatestVisitation?imei=' + visitationDto.imei + '&locationId=' + visitationDto.locationId);
+    }
+
+    getVisitationById(visitationId: number): Observable<Visitation> {
+        return this.http.get<Visitation>(this.baseUrl.getBaseUrl()
+        + this.apiLocation
+        + visitationId);
+    }
+
+    addNewVisitation(visitationDto: Visitation): void {
+        this.http.post<Visitation>(this.baseUrl.getBaseUrl()
+        + this.apiLocation
+        + 'addVisitation',
+        visitationDto);
+    }
+
+    updateVisitation(visitationDto: Visitation): void {
+        this.http.put<Visitation>(this.baseUrl.getBaseUrl()
+        + this.apiLocation
+        + 'updateVisitation',
+        visitationDto);
+    }
 
     private items = new Array<Visitation>(
         {

@@ -8,6 +8,6 @@ namespace DAL.Repositories.Interfaces
     {
         IEnumerable<VisitationEntity> GetAllVisitationsForImei(string imei);
         IEnumerable<VisitationEntity> GetAllVisitationsForLocation(int locationId);
-        VisitationEntity GetLastestVisitation(string imei, int locationId);
+        VisitationEntity GetLatestVisitation(string imei, int locationId);
     }
 }

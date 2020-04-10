@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  webServerUrl: 'http://localhost:5000/'
+  webServerUrl: 'https://hazardtrackerserver20200410132817.azurewebsites.net/'
 };
 
 /*

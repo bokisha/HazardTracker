@@ -24,7 +24,7 @@ namespace HazardTrackerServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<HazardTrackerDbContext>(options =>
-                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+                options.UseSqlite(Configuration["ConnectionStrings:DefaultConnection"]));
 
 
             services.AddControllers();

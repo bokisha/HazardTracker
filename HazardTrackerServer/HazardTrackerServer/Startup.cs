@@ -36,6 +36,7 @@ namespace HazardTrackerServer
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ILocationRepository, LocationRepository>();
             services.AddScoped<IVisitationRepository, VisitationRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {

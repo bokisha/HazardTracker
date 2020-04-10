@@ -9,14 +9,16 @@ namespace DAL
         private readonly IUserRepository _userRepository;
         private readonly ILocationRepository _locationRepository;
         private readonly IVisitationRepository _visitationRepository;
+        private readonly INotificationRepository _notificationRepository;
 
         public DatabaseSeeder(HazardTrackerDbContext hazardTrackerDbContext, IUserRepository userRepository,
-            ILocationRepository locationRepository, IVisitationRepository visitationRepository)
+            ILocationRepository locationRepository, IVisitationRepository visitationRepository, INotificationRepository notificationRepository)
         {
             _hazardTrackerDbContext = hazardTrackerDbContext;
             _locationRepository = locationRepository;
             _visitationRepository = visitationRepository;
             _userRepository = userRepository;
+            _notificationRepository = notificationRepository;
         }
 
         public void Seed()
@@ -47,6 +49,12 @@ namespace DAL
 
             var visitation2 = new VisitationEntity { Imei = "lllll", Location = location2 };
             _visitationRepository.Create(visitation2);
+
+            var notification1 = new NotificationEntity { NotificationText = "notificationText1", User = user1 };
+            _notificationRepository.Create(notification1);
+
+            var notification2 = new NotificationEntity { NotificationText = "notificationText2", User = user2 };
+            _notificationRepository.Create(notification2);
         }
     }
 }

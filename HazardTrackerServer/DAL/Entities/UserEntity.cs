@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using DAL.Entities.Interfaces;
 
 namespace DAL.Entities
@@ -11,5 +11,6 @@ namespace DAL.Entities
         public string DeviceToken { get; set; }
         public bool IsInfected { get; set; }
         public DateTime PotentialInfectionDate { get; set; }
+        public ICollection<NotificationEntity> Notifications { get; set; }
     }
 }

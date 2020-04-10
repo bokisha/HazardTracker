@@ -2,7 +2,9 @@
     <Label text="Notifications"></Label>
 </ActionBar>
 
-<GridLayout class="page__content">
-    <Label class="page__content-icon fas" text="&#xf0f3;"></Label>
-    <Label class="page__content-placeholder" text="<!-- Page content goes here -->"></Label>
+<GridLayout (swipe)="changePage($event)">
+    <ListView [items]="notifications" (swipe)="changePage($event)">
+        <StackLayout *ngFor="let notification of notifications" (swipe)="changePage($event)">
+        </StackLayout>
+    </ListView>
 </GridLayout>

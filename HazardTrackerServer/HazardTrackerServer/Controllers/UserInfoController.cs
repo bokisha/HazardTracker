@@ -61,6 +61,16 @@ namespace HazardTrackerServer.Controllers
 
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPut("token")]
+        public IActionResult PutToken(UserEntity user)
+        {
+            _userInfoRepository.Update(user);
+
+            return Ok();
+        }
+
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut]
         public IActionResult Put(UserEntity user)
         {

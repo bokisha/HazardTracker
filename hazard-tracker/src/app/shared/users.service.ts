@@ -7,6 +7,7 @@ export interface User {
     id: number;
     imei: string;
     isInfected: boolean;
+    token: string;
     potentialInfectionDate: Date;
 }
 
@@ -36,6 +37,23 @@ export class UsersService {
                 user.potentialInfectionDate = date;
 
                 this.http.put<User>(this.baseUrl.getBaseUrl() + this.apiLocation, user).subscribe();
+            },
+            (error) => console.error(error)
+        );
+    }
+
+    postToken(imei: string, token: string): void {
+        this.getUser(imei).subscribe(
+            (data) => {
+                const user = data;
+
+                if (user === undefined) {
+                    throw new Error('Error getting user information');
+                }
+
+                user.token = token;
+
+                this.http.put<User>(this.baseUrl.getBaseUrl() + this.apiLocation + "token", user).subscribe();
             },
             (error) => console.error(error)
         );

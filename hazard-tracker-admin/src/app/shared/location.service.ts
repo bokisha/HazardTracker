@@ -23,9 +23,9 @@ export class LocationService {
     generatePdf(location: Location): Observable<Blob> {
         const httpOptions = {
             headers: new HttpHeaders({
-              Accept: 'application/pdf',
-              responseType: 'blob'
-            })
+              Accept: 'application/pdf'
+            }),
+            responseType: 'blob'
           };
 
         return this.http.get<Blob>(this.locationApiUrl + 'generate?id=' + location.id, httpOptions);

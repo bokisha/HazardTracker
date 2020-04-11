@@ -8,8 +8,8 @@
                 </TabStripItem>
                 <!-- Map -->
                 <!-- <TabStripItem class="navigation__item">
-                <Image src="font://&#xf279;" class="far t-36"></Image>
-            </TabStripItem> -->
+                    <Image src="font://&#xf279;" class="far t-36"></Image>
+                </TabStripItem> -->
                 <!-- Status -->
                 <TabStripItem class="navigation__item">
                     <Image src="font://&#xf004;" class="fas t-36"></Image>
@@ -33,8 +33,8 @@
             </TabContentItem>
 
             <!-- <TabContentItem>
-            <page-router-outlet name="mapTab"></page-router-outlet>
-        </TabContentItem> -->
+                <page-router-outlet name="mapTab"></page-router-outlet>
+            </TabContentItem> -->
 
             <TabContentItem>
                 <page-router-outlet name="statusTab"></page-router-outlet>
@@ -54,5 +54,7 @@
         </BottomNavigation>
     </GridLayout>
 
-    <Button row="1" class="add-hazard fas" text="&#xf0f1;" (tap)="addHazard()"></Button>
+    <GridLayout [top]="screenHeight - 210" [left]="screenWidth - 90">
+        <Button class="add-hazard fas" text="&#xf0f1;" (tap)="addHazard()"></Button>
+    </GridLayout>
 </AbsoluteLayout>

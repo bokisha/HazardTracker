@@ -40,7 +40,7 @@ export class GenerateCodeComponent implements OnInit {
         const  downloadURL = window.URL.createObjectURL(response);
         const link = document.createElement('a');
         link.href = downloadURL;
-        link.download = "QRCode.pdf";
+        link.download = 'QRCode.pdf';
         link.click();
     }
 }

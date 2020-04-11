@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { SwipeGestureEventData, SwipeDirection } from 'tns-core-modules/ui/gestures';
 import { alert, prompt, PromptResult, PromptOptions, inputType, capitalizationType, confirm } from 'tns-core-modules/ui/dialogs';
 import { Message } from 'nativescript-plugin-firebase/messaging';
+import { screen } from 'tns-core-modules/platform';
 
 import { PageService } from './shared/page.service';
 import { UsersService } from './shared/users.service';
@@ -15,6 +16,9 @@ const firebase = require('nativescript-plugin-firebase');
     templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
+
+    screenHeight: number;
+    screenWidth: number;
 
     private _selectedPage: number;
 
@@ -69,6 +73,9 @@ export class AppComponent implements OnInit {
             (error) => console.error(error),
             () => console.log(this.selectedPage)
         );
+
+        this.screenHeight = screen.mainScreen.heightDIPs;
+        this.screenWidth = screen.mainScreen.widthDIPs;
     }
 
     swipe(event: SwipeGestureEventData) {

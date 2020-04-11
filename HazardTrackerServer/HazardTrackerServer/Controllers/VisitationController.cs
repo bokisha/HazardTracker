@@ -61,22 +61,13 @@ namespace HazardTrackerServer.Controllers
 
             CreateVisitation(visitationDto.Imei, location);
 
-            return Ok();            
+            return CreatedAtAction(nameof(GetById), new { id = location.Id }, location);
         }
 
         [HttpPut("updateVisitation")]
         public IActionResult Put([FromBody] VisitationDto visitationDto)
         {
             VisitationEntity visitedAndCurrentLocation = _visitationRepository.GetLatestVisitation(visitationDto.Imei, visitationDto.LocationId);
-
-            // in the event user didn't scan qr code on entry, but did so on exit
-            // or user passed through the shop 2 hours later again
-            TimeSpan ts = DateTime.Now - visitedAndCurrentLocation.EnterTime;
-            if (visitedAndCurrentLocation == null || ts.Hours > 2)
-            {
-                LocationEntity location = _locationRepository.GetById(visitationDto.LocationId);
-                CreateVisitation(visitationDto.Imei, location);
-            }
 
             visitedAndCurrentLocation.ExitTime = DateTime.Now;
             _visitationRepository.Update(visitedAndCurrentLocation);
@@ -91,7 +82,7 @@ namespace HazardTrackerServer.Controllers
                 {
                     Imei = imei,
                     EnterTime = DateTime.Now,
-                    ExitTime = DateTime.Now.AddHours(2), // this will be overwriten in updateVisitation
+                    ExitTime = DateTime.Today.AddDays(1),
                     Location = location
                 };
                 _visitationRepository.Create(visitation);

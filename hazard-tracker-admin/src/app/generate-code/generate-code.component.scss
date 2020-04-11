@@ -13,8 +13,8 @@
 div {
     padding: 50px;
 
-    & > p {
-        margin-bottom: 10px;
+    & > h2 {
+        padding-bottom: 30px;
     }
 
     & > *:not(span) {

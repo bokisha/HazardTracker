@@ -57,13 +57,11 @@
 
 .add-hazard {
     border-radius: 50%;
-    width: 45;
-    height: 45;
+    width: 55;
+    height: 55;
+    font-size: 20;
     background-color: const(blue);
     color: white;
-    position: fixed;
-    bottom: 10;
-    right: 10;
 }
 
 .add-hazard:active {

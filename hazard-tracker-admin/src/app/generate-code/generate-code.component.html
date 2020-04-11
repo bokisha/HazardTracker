@@ -1,7 +1,5 @@
 <div *ngIf="!location">
-    <p>
-        Enter location details
-    </p>
+    <h2>Enter location details</h2>
     <span>Name</span>
     <input type="text" #newLocationName>
     <span>Address</span>
@@ -11,5 +9,6 @@
 </div>
 
 <div *ngIf="location">
+    <h2>Generate and print the QR code <br/> for your location</h2>
     <button (click)="generatePdf()">Generate QR Code</button>
 </div>

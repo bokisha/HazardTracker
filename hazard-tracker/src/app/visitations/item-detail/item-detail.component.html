@@ -1,10 +1,10 @@
 <ActionBar>
     <NavigationButton (tap)="onBackTap()" android.systemIcon="ic_menu_back"></NavigationButton>
-    <Label [text]="item.imei"></Label>
+    <Label [text]="visitation.imei"></Label>
 </ActionBar>
 
 <StackLayout>
-    <Label class="m-10 h3" verticalAlignment="top" [text]="'Location: ' + getLocation(item.locationId).name + ' ' + getLocation(item.locationId).adress"></Label>
-    <Label class="m-10 h3" verticalAlignment="top" [text]="'Time of entry: ' + item.enterTime | date: 'medium'"></Label>
-    <Label class="m-10 h3" verticalAlignment="top" [text]="'Time of exit: ' + item.exitTime | date: 'medium'"></Label>
+    <Label class="m-10 h3" verticalAlignment="top" [text]="'Location: ' + getLocationName() + ' ' + getlocationAddress()"></Label>
+    <Label class="m-10 h3" verticalAlignment="top" [text]="'Time of entry: ' + visitation.enterTime | date: 'medium'"></Label>
+    <Label class="m-10 h3" verticalAlignment="top" [text]="'Time of exit: ' + visitation.exitTime | date: 'medium'"></Label>
 </StackLayout>

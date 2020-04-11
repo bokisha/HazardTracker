@@ -5,5 +5,5 @@
 <GridLayout class="page__content" (swipe)="changePage($event)" (tap)="onScan()">
     <Label class="icon fas" text="&#xf029;"></Label>
     <Label class="h1 text-center" text="Tap to scan" ></Label>
-    <Label *ngIf="messageFromQrCode !== undefined" class="QRData" text="QR code data: {{messageFromQrCode}}"></Label>
+    <!-- <Label *ngIf="messageFromQrCode !== undefined" class="QRData" text="QR code data: {{messageFromQrCode}}"></Label> -->
 </GridLayout>

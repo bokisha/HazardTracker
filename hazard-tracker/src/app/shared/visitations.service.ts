@@ -1,13 +1,15 @@
+import { Location } from '~/app/shared/locations.service';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 
 export interface Visitation {
-    id: number;
+    id?: number,
     imei: string;
-    enterTime: Date;
-    exitTime: Date;
+    enterTime?: Date;
+    exitTime?: Date;
+    location?: Location;
     locationId: number;
 }
 
@@ -46,11 +48,15 @@ export class VisitationsService {
         + visitationId);
     }
 
-    addNewVisitation(visitation: Visitation): void {
-        this.http.post<Visitation>(this.baseUrl.getBaseUrl()
+    addNewVisitation(visitation: Visitation): Observable<Visitation> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json'
+        });
+
+        return this.http.post<Visitation>(this.baseUrl.getBaseUrl()
         + this.apiLocation
         + 'addVisitation',
-        visitation);
+        visitation, {headers});
     }
 
     updateVisitation(visitation: Visitation): void {

@@ -11,6 +11,8 @@ using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 using System.IO;
 using System.Drawing.Imaging;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HazardTrackerServer.Controllers
 {
@@ -37,6 +39,15 @@ namespace HazardTrackerServer.Controllers
             }
 
             return location;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            IList<LocationEntity> locations = await _locationRepository.GetAllAsync();
+
+            // add dtos and mappings between dtos and entities
+            return Ok(locations);
         }
 
         [ProducesResponseType(StatusCodes.Status201Created)]

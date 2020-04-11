@@ -1,7 +1,10 @@
+import { DeviceInformationService } from './../shared/deviceInformation.service';
+import { VisitationsService, Visitation } from './../shared/visitations.service';
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from 'nativescript-barcodescanner';
 import { PageService } from '../shared/page.service';
 import { SwipeGestureEventData } from 'tns-core-modules/ui/gestures/gestures';
+
 
 @Component({
     selector: 'qr',
@@ -10,10 +13,11 @@ import { SwipeGestureEventData } from 'tns-core-modules/ui/gestures/gestures';
 })
 export class QrComponent implements OnInit {
 
-    messageFromQrCode: string;
-
+    visitation: Visitation;
     constructor(private barcodeScanner: BarcodeScanner,
-                private pageService: PageService) {}
+                private pageService: PageService,
+                private visitationsService: VisitationsService,
+                private deviceInformationService: DeviceInformationService) {}
 
     ngOnInit(): void {
         // Use the "ngOnInit" handler to initialize data for the view.
@@ -38,12 +42,15 @@ export class QrComponent implements OnInit {
             presentInRootViewController: true
         }).then((result) => {
             // Note that this Promise is never invoked when a 'continuousScanCallback' function is provided
-            this.messageFromQrCode = result.text;
-            alert({
-                title: 'Scan result',
-                message: 'Format: ' + result.format + ',\nValue: ' + result.text,
-                okButtonText: 'OK'
-            });
+            this.visitation = {
+                imei: this.deviceInformationService.getDeviceImei(),
+                locationId: +result.text
+            };
+            this.visitationsService.addNewVisitation(this.visitation).subscribe(
+                a => {
+                    console.log(a)
+                }
+            );
         },
         (errorMessage) => {
             alert({

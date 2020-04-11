@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ApiService } from './api.service';
+import { Observable } from 'rxjs';
 
 export interface Location {
     id: number;
@@ -10,34 +13,22 @@ export interface Location {
     providedIn: 'root'
 })
 export class LocationsService {
+    apiLocation = 'api/location/';
 
-    private items = new Array<Location>(
-        {
-            id: 1,
-            name: 'Maxi',
-            adress: 'Džona Kenedija 10, Beograd 11080, Serbia'
-        },
-        {
-            id: 2,
-            name: 'Maxi',
-            adress: 'Narodnih heroja 30, Beograd 11070, Serbia'
-        },
-        {
-            id: 3,
-            name: 'Idea',
-            adress: 'Bulevar Mihajla Pupina 181v, Novi Beograd 11070, Serbia'
-        }
-    );
-
-    getLocations(): Array<Location> {
-        return this.items;
+    /**
+     *
+     */
+    constructor(private http: HttpClient,
+                private baseUrl: ApiService) {
     }
 
-    getLocation(id: number): Location {
-        return this.items.filter((item) => item.id === id)[0];
+    getLocations(): Observable<Array<Location>> {
+        return this.http.get<Array<Location>>(this.baseUrl.getBaseUrl()
+        + this.apiLocation);
     }
 
-    getLocationsByIds(ids: Array<number>): Array<Location> {
-        return this.items.filter((item) => ids.indexOf(item.id) > -1);
+    getLocationById(id: number): Observable<Location> {
+        return this.http.get<Location>(this.baseUrl.getBaseUrl()
+        + this.apiLocation + id);
     }
 }

@@ -10,28 +10,39 @@ import { LocationsService, Location } from '~/app/shared/locations.service';
     templateUrl: './item-detail.component.html'
 })
 export class ItemDetailComponent implements OnInit {
-    item: Visitation;
-
+    visitation: Visitation;
     constructor(
         private _data: VisitationsService,
         private _route: ActivatedRoute,
-        private _routerExtensions: RouterExtensions,
-        private locationsService: LocationsService
+        private _routerExtensions: RouterExtensions
     ) { }
 
     ngOnInit(): void {
         const id = +this._route.snapshot.params.id;
         this._data.getVisitationById(id).subscribe(
-            (data) => this.item = data,
+            (data) => {
+                this.visitation = data;
+            },
             (error) => console.error(error)
         );
     }
 
-    onBackTap(): void {
-        this._routerExtensions.back();
+    getLocationName() {
+        if (this.visitation === undefined || this.visitation.location === undefined) {
+            return '';
+        }
+
+        return this.visitation.location.name;
+    }
+    getlocationAddress() {
+        if (this.visitation === undefined || this.visitation.location === undefined) {
+            return '';
+        }
+
+        return this.visitation.location.adress;
     }
 
-    getLocation(id: number): Location {
-        return this.locationsService.getLocation(id);
+    onBackTap(): void {
+        this._routerExtensions.back();
     }
 }

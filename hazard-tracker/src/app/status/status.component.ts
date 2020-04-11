@@ -7,7 +7,7 @@ import { User } from '../shared/users.service';
     templateUrl: './status.component.html'
 })
 export class StatusComponent implements OnInit {
-    infectionStatus: string;
+    isInfected: boolean;
 
     constructor(private statusService: StatusService) {}
 
@@ -17,15 +17,7 @@ export class StatusComponent implements OnInit {
 
     getStatus(imei: string) {
         this.statusService.getStatus(imei).subscribe(
-            (data) => {
-                const user: User = data;
-
-                if (user.isInfected === true) {
-                    this.infectionStatus = 'Infected';
-                } else {
-                    this.infectionStatus = 'Healthy';
-                }
-            },
+            (data) => this.isInfected = data,
             (error) => console.error(error)
         );
     }

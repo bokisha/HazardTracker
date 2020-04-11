@@ -50,7 +50,7 @@ namespace HazardTrackerServer.Controllers
 
         [HttpGet("getById/{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<LocationEntity> GetById(int id)
+        public ActionResult<UserEntity> GetById(int id)
         {
             var user = _userInfoRepository.GetById(id);
 
@@ -58,6 +58,18 @@ namespace HazardTrackerServer.Controllers
                 return NotFound();
 
             return Ok(user);
+        }
+
+        [HttpGet("getStatus/{imei}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<bool> GetStatus(string imei)
+        {
+            var user = _userInfoRepository.GetByImei(imei);
+
+            if (user == null)
+                return NotFound();
+
+            return Ok(user.IsInfected);
         }
 
         [ProducesResponseType(StatusCodes.Status202Accepted)]

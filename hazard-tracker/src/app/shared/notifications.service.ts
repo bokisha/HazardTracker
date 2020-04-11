@@ -20,7 +20,7 @@ export class NotificationsService {
     constructor(private http: HttpClient, private baseUrl: ApiService) { }
 
     getAllNotificationsForUser(imei: string): Observable<Array<Notification>> {
-        return interval(5000).pipe(
+        return interval(1000).pipe(
             switchMap(() => {
                 return this.http.get<Array<Notification>>(this.baseUrl.getBaseUrl()
                                                           + this.apiLocation

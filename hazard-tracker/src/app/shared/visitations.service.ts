@@ -24,7 +24,7 @@ export class VisitationsService {
     constructor(private http: HttpClient, private baseUrl: ApiService) { }
 
     getAllVisitationsForImei(imei: string): Observable<Array<Visitation>> {
-        return interval(5000).pipe(
+        return interval(1000).pipe(
             switchMap(() => {
                 return this.http.get<Array<Visitation>>(this.baseUrl.getBaseUrl()
                                                         + this.apiLocation

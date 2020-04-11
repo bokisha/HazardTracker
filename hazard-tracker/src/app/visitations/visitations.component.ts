@@ -5,7 +5,6 @@ import { Location } from '../shared/locations.service';
 import { VisitationsService, Visitation } from '../shared/visitations.service';
 import { SwipeGestureEventData } from 'tns-core-modules/ui/gestures/gestures';
 import { PageService } from '../shared/page.service';
-import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
     selector: 'visitations',

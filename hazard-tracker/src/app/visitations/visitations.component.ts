@@ -20,8 +20,8 @@ export class VisitationsComponent implements OnInit {
 
     constructor(private visitationsService: VisitationsService,
                 private pageService: PageService,
-                deviceInformationService: DeviceInformationService) {
-                    this.imei = deviceInformationService.getDeviceImei();
+                private deviceInformationService: DeviceInformationService) {
+        this.imei = this.deviceInformationService.getDeviceImei();
     }
 
     ngOnInit(): void {

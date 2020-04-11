@@ -22,8 +22,7 @@ namespace HazardTrackerServer.Controllers
         [HttpGet("getAllNotificationsForUser/{imei}")]
         public ActionResult<IEnumerable<NotificationEntity>> GetAllNotificationsForUser(string imei)
         {
-            UserEntity user = _userRepository.GetByImei(imei);
-            return _notificationRepository.GetAllNotificationsForUser(user.Id).ToList();
+            return _notificationRepository.GetAllNotificationsForUser(imei).ToList();
         }
     }
 }

@@ -11,9 +11,9 @@ namespace DAL.Repositories
         {
         }
 
-        public IEnumerable<NotificationEntity> GetAllNotificationsForUser(int userId)
+        public IEnumerable<NotificationEntity> GetAllNotificationsForUser(string imei)
         {
-            IQueryable<NotificationEntity> notificationsForUser = DbSet.Where(v => v.User.Id == userId);
+            IQueryable<NotificationEntity> notificationsForUser = DbSet.Where(v => v.User.Imei == imei);
             return notificationsForUser.ToList();
         }
     }

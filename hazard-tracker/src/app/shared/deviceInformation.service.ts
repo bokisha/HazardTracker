@@ -6,9 +6,7 @@ import * as platformModule from 'tns-core-modules/platform';
 })
 export class DeviceInformationService {
 
-    constructor() { }
-
-    getDeviceImei(){
+    getDeviceImei() {
         return platformModule.device.uuid;
     }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Notification, NotificationsService } from '../shared/notifications.service';
 import { PageService } from '../shared/page.service';
 import { SwipeGestureEventData } from 'tns-core-modules/ui/gestures/gestures';
+import { DeviceInformationService } from '../shared/deviceInformation.service';
 
 @Component({
     selector: 'notifications',
@@ -14,8 +15,9 @@ export class NotificationsComponent implements OnInit {
     notifications: Array<Notification>;
 
     constructor(private notificationsService: NotificationsService,
-        private pageService: PageService) {
-        this.imei = 'ooooo';
+                private pageService: PageService,
+                private deviceInformationService: DeviceInformationService) {
+        this.imei = this.deviceInformationService.getDeviceImei();
     }
 
     ngOnInit(): void {

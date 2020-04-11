@@ -28,10 +28,5 @@ namespace DAL.Repositories
             return DbSet.Where(v => v.Imei == imei && v.Location.Id == locationId)
                         .OrderByDescending(v => v.EnterTime).First();
         }
-
-        public VisitationEntity GetById(int id)
-        {
-            return DbSet.Find(id);
-        }
     }
 }

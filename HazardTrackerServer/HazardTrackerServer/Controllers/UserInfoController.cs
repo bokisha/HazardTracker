@@ -48,17 +48,17 @@ namespace HazardTrackerServer.Controllers
             return Ok(user);
         }
 
-        //[HttpGet("{id}")]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public ActionResult<LocationEntity> GetById(int id)
-        //{
-        //    var user = _userInfoRepository.GetById(id);
+        [HttpGet("getById/{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<LocationEntity> GetById(int id)
+        {
+            var user = _userInfoRepository.GetById(id);
 
-        //    if (user == null)
-        //        return NotFound();
+            if (user == null)
+                return NotFound();
 
-        //    return Ok(user);
-        //}
+            return Ok(user);
+        }
 
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -78,6 +78,21 @@ namespace HazardTrackerServer.Controllers
             _userInfoRepository.Update(user);
 
             return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody] UserEntity user)
+        {
+            try {
+                _userInfoRepository.Create(user);
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine(e);
+                throw new InvalidOperationException($"Could not create a user record. {e.Message}");
+            }
+
+            return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
         }
 
         private void CheckUsersExposure(UserEntity user)

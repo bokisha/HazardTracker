@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
 
     screenHeight: number;
     screenWidth: number;
+    imei: string;
 
     private _selectedPage: number;
 
@@ -43,6 +44,9 @@ export class AppComponent implements OnInit {
                 private deviceInformationService: DeviceInformationService) { }
 
     ngOnInit(): void {
+        this.imei = this.deviceInformationService.getDeviceImei();
+        console.log('IMEI: ' + this.imei);
+
         firebase.init({
             onMessageReceivedCallback: (message: Message) => {
                 alert({
@@ -51,7 +55,7 @@ export class AppComponent implements OnInit {
                 });
             },
             onPushTokenReceivedCallback: (token) => {
-                this.usersService.postToken('ooooo', token);
+                this.usersService.postToken(this.imei, token);
                 console.log('token ' + token);
             },
             showNotificationsWhenInForeground: true
@@ -63,8 +67,6 @@ export class AppComponent implements OnInit {
                 console.log(`firebase.init error: ${error}`);
             }
         );
-
-        console.log('IMEI: ' + this.deviceInformationService.getDeviceImei());
 
         this._selectedPage = 2;
 
@@ -118,7 +120,7 @@ export class AppComponent implements OnInit {
                         return;
                     }
 
-                    this.usersService.postHazard('ooooo', +promptResult.text);
+                    this.usersService.postHazard(this.imei, +promptResult.text);
                 });
             };
 

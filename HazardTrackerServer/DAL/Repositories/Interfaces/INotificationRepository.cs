@@ -6,6 +6,6 @@ namespace DAL.Repositories.Interfaces
 {
     public interface INotificationRepository : IEntityRepository<NotificationEntity>
     {
-        IEnumerable<NotificationEntity> GetAllNotificationsForUser(int userId);
+        IEnumerable<NotificationEntity> GetAllNotificationsForUser(string imei);
     }
 }

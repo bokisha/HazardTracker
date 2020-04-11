@@ -27,7 +27,9 @@ namespace HazardTrackerServer
                 options.UseSqlite(Configuration["ConnectionStrings:DefaultConnection"]));
 
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             services.AddScoped<IDatabaseSeeder, DatabaseSeeder>();
 

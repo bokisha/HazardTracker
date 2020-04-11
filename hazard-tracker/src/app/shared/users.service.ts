@@ -11,6 +11,16 @@ export interface User {
     potentialInfectionDate: Date;
 }
 
+class UserClass implements User {
+    constructor(
+        public id: number,
+        public imei: string,
+        public isInfected: boolean,
+        public deviceToken: string,
+        public potentialInfectionDate: Date) {}
+}
+
+// tslint:disable-next-line: max-classes-per-file
 @Injectable({
     providedIn: 'root'
 })
@@ -27,7 +37,8 @@ export class UsersService {
                 const user = data;
 
                 if (user === undefined) {
-                    throw new Error('Error getting user information');
+                    const newUser = new UserClass(0, imei, false, '', new Date(1901, 1));
+                    this.addUser(newUser);
                 }
 
                 user.isInfected = true;
@@ -48,7 +59,8 @@ export class UsersService {
                 const user = data;
 
                 if (user === undefined) {
-                    throw new Error('Error getting user information');
+                    const newUser = new UserClass(0, imei, false, '', new Date(1901, 1));
+                    this.addUser(newUser);
                 }
 
                 user.deviceToken = token;
@@ -61,5 +73,9 @@ export class UsersService {
 
     getUser(imei: string): Observable<User> {
         return this.http.get<User>(this.baseUrl.getBaseUrl() + this.apiLocation + imei);
+    }
+
+    addUser(user: User): void {
+        this.http.post<User>(this.baseUrl.getBaseUrl() + this.apiLocation, user).subscribe();
     }
 }

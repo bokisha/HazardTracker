@@ -2,6 +2,7 @@
 using System.Linq;
 using DAL.Entities;
 using DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
@@ -13,7 +14,7 @@ namespace DAL.Repositories
 
         public IEnumerable<NotificationEntity> GetAllNotificationsForUser(string imei)
         {
-            IQueryable<NotificationEntity> notificationsForUser = DbSet.Where(v => v.User.Imei == imei);
+            IQueryable<NotificationEntity> notificationsForUser = DbSet.Include(n => n.User).Where(v => v.User.Imei == imei);
             return notificationsForUser.ToList();
         }
     }

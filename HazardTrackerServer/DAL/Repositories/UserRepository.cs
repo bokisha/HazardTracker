@@ -2,6 +2,7 @@
 
 using DAL.Entities;
 using DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
@@ -13,7 +14,7 @@ namespace DAL.Repositories
 
         public UserEntity GetByImei(string imei)
         {
-            return DbSet.AsEnumerable().FirstOrDefault(item => item.Imei == imei);
+            return DbSet.Include(u => u.Notifications).FirstOrDefault(item => item.Imei == imei);
         }
     }
 }

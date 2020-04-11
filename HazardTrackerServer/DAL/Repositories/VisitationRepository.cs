@@ -22,13 +22,16 @@ namespace DAL.Repositories
 
         public IEnumerable<VisitationEntity> GetAllVisitationsForLocation(int locationId)
         {
-            IQueryable<VisitationEntity> visitationsForLocation = DbSet.Where(v => v.Location.Id == locationId);
+            IQueryable<VisitationEntity> visitationsForLocation = DbSet
+                .Include(v => v.Location)
+                .Where(v => v.Location.Id == locationId);
             return visitationsForLocation.ToList();
         }
 
         public VisitationEntity GetLatestVisitation(string imei, int locationId)
         {
-            return DbSet.Where(v => v.Imei == imei && v.Location.Id == locationId)
+            return DbSet.Include(v => v.Location)
+                .Where(v => v.Imei == imei && v.Location.Id == locationId)
                         .OrderByDescending(v => v.EnterTime).First();
         }
     }

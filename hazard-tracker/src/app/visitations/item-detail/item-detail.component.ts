@@ -39,7 +39,7 @@ export class ItemDetailComponent implements OnInit {
             return '';
         }
 
-        return this.visitation.location.adress;
+        return this.visitation.location.address;
     }
 
     onBackTap(): void {

@@ -43,6 +43,14 @@ export class VisitationsComponent implements OnInit {
         return visitation.location.name;
     }
 
+    getVisitedLocationAddress(visitation: Visitation) {
+        if (visitation === undefined || visitation.location === null) {
+            return '';
+        }
+
+        return visitation.location.address;
+    }
+
     changePage(event: SwipeGestureEventData) {
         this.pageService.setPage(event, 3);
     }

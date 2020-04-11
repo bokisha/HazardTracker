@@ -6,7 +6,8 @@
     <ListView [items]="visitations" (swipe)="changePage($event)">
         <StackLayout *ngFor="let visitation of visitations" (swipe)="changePage($event)">
             <Label [nsRouterLink]="['../item', visitation.id]"
-            [text]="getVisitedLocationName(visitation) + ' (' + visitation.enterTime +')'" (swipe)="changePage($event)"></Label>
+            [text]="getVisitedLocationName(visitation) + ', ' +
+            getVisitedLocationAddress(visitation) + ' (' + (visitation.enterTime | date)+')'" (swipe)="changePage($event)"></Label>
         </StackLayout>
     </ListView>
 </GridLayout>

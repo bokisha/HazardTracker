@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 export interface Location {
     id: number;
     name: string;
-    adress: string;
+    address: string;
 }
 
 @Injectable({

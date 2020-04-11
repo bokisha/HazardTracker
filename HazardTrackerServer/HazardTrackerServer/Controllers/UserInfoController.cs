@@ -105,7 +105,7 @@ namespace HazardTrackerServer.Controllers
                 // for now just compare the dates
                 if (location.Visitations.Any(v => v.Imei == user.Imei && v.EnterTime.Date >= user.PotentialInfectionDate.Date && v.EnterTime.Date <= DateTime.Now.Date))
                 {
-                    foreach (VisitationEntity visitation in location.Visitations.Where(v => v.Imei != user.Imei))
+                    foreach (VisitationEntity visitation in location.Visitations.Where(v => v.Imei != user.Imei && v.EnterTime.Date >= user.PotentialInfectionDate.Date && v.EnterTime.Date <= DateTime.Now.Date))
                     {
                         // this can be optimized later
                         UserEntity exposedUser = _userInfoRepository.GetByImei(visitation.Imei);

@@ -59,25 +59,9 @@ namespace HazardTrackerServer.Controllers
             LocationEntity location = _locationRepository.GetById(visitationDto.LocationId);
             if (location == null) return BadRequest("Invalid location id.");
 
-            try
-            {
-                var visitation = new VisitationEntity
-                {
-                    Imei = visitationDto.Imei,
-                    EnterTime = DateTime.Now,
-                    ExitTime = DateTime.Now.AddHours(2), // this will be overwriten in updateVisitation
-                    Location = location
-                };
-                _visitationRepository.Create(visitation);
+            CreateVisitation(visitationDto.Imei, location);
 
-                return CreatedAtAction(nameof(GetById), new {id = visitation.Id}, visitation);
-            }
-            catch (InvalidOperationException e)
-            {
-                Console.WriteLine(e);
-                throw new InvalidOperationException($"Could not create a visitation record. {e.Message}");
-            }
-            
+            return Ok();            
         }
 
         [HttpPut("updateVisitation")]
@@ -90,12 +74,33 @@ namespace HazardTrackerServer.Controllers
             TimeSpan ts = DateTime.Now - visitedAndCurrentLocation.EnterTime;
             if (visitedAndCurrentLocation == null || ts.Hours > 2)
             {
-                return Post(visitationDto);
+                LocationEntity location = _locationRepository.GetById(visitationDto.LocationId);
+                CreateVisitation(visitationDto.Imei, location);
             }
 
             visitedAndCurrentLocation.ExitTime = DateTime.Now;
             _visitationRepository.Update(visitedAndCurrentLocation);
             return Ok();
+        }
+
+        private void CreateVisitation(string imei, LocationEntity location)
+        {
+            try
+            {
+                var visitation = new VisitationEntity
+                {
+                    Imei = imei,
+                    EnterTime = DateTime.Now,
+                    ExitTime = DateTime.Now.AddHours(2), // this will be overwriten in updateVisitation
+                    Location = location
+                };
+                _visitationRepository.Create(visitation);
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine(e);
+                throw new InvalidOperationException($"Could not create a visitation record. {e.Message}");
+            }
         }
     }
 }

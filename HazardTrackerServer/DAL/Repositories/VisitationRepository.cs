@@ -17,7 +17,7 @@ namespace DAL.Repositories
             IQueryable<VisitationEntity> visitationsForImei = DbSet
                 .Include(v => v.Location)
                 .Where(v => v.Imei == Imei);
-            return visitationsForImei.ToList();
+            return visitationsForImei.OrderByDescending(item => item.EnterTime).ToList();
         }
 
         public IEnumerable<VisitationEntity> GetAllVisitationsForLocation(int locationId)

@@ -5,7 +5,6 @@ import { BarcodeScanner } from 'nativescript-barcodescanner';
 import { PageService } from '../shared/page.service';
 import { SwipeGestureEventData } from 'tns-core-modules/ui/gestures/gestures';
 
-
 @Component({
     selector: 'qr',
     templateUrl: './qr.component.html',
@@ -46,11 +45,8 @@ export class QrComponent implements OnInit {
                 imei: this.deviceInformationService.getDeviceImei(),
                 locationId: +result.text
             };
-            this.visitationsService.addNewVisitation(this.visitation).subscribe(
-                a => {
-                    console.log(a)
-                }
-            );
+
+            this.visitationsService.addNewVisitation(this.visitation);
         },
         (errorMessage) => {
             alert({

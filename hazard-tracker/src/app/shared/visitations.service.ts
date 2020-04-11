@@ -1,7 +1,8 @@
 import { Location } from '~/app/shared/locations.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, interval } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { ApiService } from './api.service';
 
 export interface Visitation {
@@ -23,10 +24,14 @@ export class VisitationsService {
     constructor(private http: HttpClient, private baseUrl: ApiService) { }
 
     getAllVisitationsForImei(imei: string): Observable<Array<Visitation>> {
-        return this.http.get<Array<Visitation>>(this.baseUrl.getBaseUrl()
-        + this.apiLocation
-        + 'getAllVisitationsForImei/'
-        + imei);
+        return interval(5000).pipe(
+            switchMap(() => {
+                return this.http.get<Array<Visitation>>(this.baseUrl.getBaseUrl()
+                                                        + this.apiLocation
+                                                        + 'getAllVisitationsForImei/'
+                                                        + imei);
+            })
+        );
     }
 
     getAllVisitationsForLocation(locationId: number): Observable<Array<Visitation>> {
@@ -48,21 +53,18 @@ export class VisitationsService {
         + visitationId);
     }
 
-    addNewVisitation(visitation: Visitation): Observable<Visitation> {
+    addNewVisitation(visitation: Visitation): void {
         const headers = new HttpHeaders({
             'Content-Type': 'application/json'
         });
 
-        return this.http.post<Visitation>(this.baseUrl.getBaseUrl()
-        + this.apiLocation
-        + 'addVisitation',
-        visitation, {headers});
+        this.http.post<Visitation>(this.baseUrl.getBaseUrl() + this.apiLocation + 'addVisitation',
+                                   visitation, {headers})
+                 .subscribe();
     }
 
     updateVisitation(visitation: Visitation): void {
-        this.http.put<Visitation>(this.baseUrl.getBaseUrl()
-        + this.apiLocation
-        + 'updateVisitation',
-        visitation);
+        this.http.put<Visitation>(this.baseUrl.getBaseUrl() + this.apiLocation + 'updateVisitation', visitation)
+                 .subscribe();
     }
 }

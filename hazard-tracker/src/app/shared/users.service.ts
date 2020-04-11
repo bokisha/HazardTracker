@@ -67,7 +67,11 @@ export class UsersService {
 
                 this.http.put<User>(this.baseUrl.getBaseUrl() + this.apiLocation + 'token', user).subscribe();
             },
-            (error) => console.error(error)
+            (error) => {
+                console.error(error);
+                const newUser = new UserClass(0, imei, false, token, new Date(1901, 1));
+                this.addUser(newUser);
+            }
         );
     }
 

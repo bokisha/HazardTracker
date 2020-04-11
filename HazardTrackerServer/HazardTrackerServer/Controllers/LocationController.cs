@@ -31,7 +31,7 @@ namespace HazardTrackerServer.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<LocationEntity> GetById(int id)
         {
-            var location = _locationRepository.GetById(id);
+            var location = _locationRepository.GetLocationById(id);
 
             if (location == null)
             {
@@ -42,9 +42,9 @@ namespace HazardTrackerServer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
-            IList<LocationEntity> locations = await _locationRepository.GetAllAsync();
+            IList<LocationEntity> locations = _locationRepository.GetAllLocations();
 
             // add dtos and mappings between dtos and entities
             return Ok(locations);

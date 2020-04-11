@@ -86,8 +86,15 @@ namespace HazardTrackerServer.Controllers
         [HttpPut]
         public IActionResult Put(UserEntity user)
         {
-            CheckUsersExposure(user);
             _userInfoRepository.Update(user);
+            try
+            {
+                CheckUsersExposure(user);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.StackTrace);
+            }
 
             return Ok();
         }
@@ -109,7 +116,7 @@ namespace HazardTrackerServer.Controllers
 
         private void CheckUsersExposure(UserEntity user)
         {
-            IEnumerable<LocationEntity> locations = _locationRepository.GetAll();
+            IList<LocationEntity> locations = _locationRepository.GetAllLocations();
             IList<UserEntity> exposedUsers = new List<UserEntity>();
 
             foreach (LocationEntity location in locations)

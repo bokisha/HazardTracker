@@ -43,7 +43,7 @@ namespace HazardTrackerServer.Controllers
         [HttpGet("{id}")]
         public ActionResult<VisitationEntity> GetById(int id)
         {
-            var visitationEntity = _visitationRepository.GetById(id);
+            var visitationEntity = _visitationRepository.GetVisitationById(id);
 
             if (visitationEntity == null)
             {
@@ -56,7 +56,7 @@ namespace HazardTrackerServer.Controllers
         [HttpPost("addVisitation")]
         public IActionResult Post([FromBody] VisitationDto visitationDto)
         {
-            LocationEntity location = _locationRepository.GetById(visitationDto.LocationId);
+            LocationEntity location = _locationRepository.GetLocationById(visitationDto.LocationId);
             if (location == null) return BadRequest("Invalid location id.");
 
             CreateVisitation(visitationDto.Imei, location);

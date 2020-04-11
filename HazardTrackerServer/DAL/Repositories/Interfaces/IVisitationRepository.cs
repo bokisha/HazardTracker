@@ -9,5 +9,6 @@ namespace DAL.Repositories.Interfaces
         IEnumerable<VisitationEntity> GetAllVisitationsForImei(string imei);
         IEnumerable<VisitationEntity> GetAllVisitationsForLocation(int locationId);
         VisitationEntity GetLatestVisitation(string imei, int locationId);
+        public VisitationEntity GetVisitationById(int id);
     }
 }

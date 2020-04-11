@@ -20,7 +20,7 @@ namespace DAL.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            return DbSet.AsEnumerable<T>();
+            return DbSet.ToList();
         }
 
         public async Task<List<T>> GetAllAsync()

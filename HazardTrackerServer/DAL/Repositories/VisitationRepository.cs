@@ -34,5 +34,10 @@ namespace DAL.Repositories
                 .Where(v => v.Imei == imei && v.Location.Id == locationId)
                         .OrderByDescending(v => v.EnterTime).First();
         }
+
+        public VisitationEntity GetVisitationById(int id)
+        {
+            return DbSet.Include(v => v.Location).FirstOrDefault(v => v.Id == id);
+        }
     }
 }

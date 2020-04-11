@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from 'nativescript-barcodescanner';
 import { PageService } from '../shared/page.service';
 import { SwipeGestureEventData } from 'tns-core-modules/ui/gestures/gestures';
+import { StatusService } from '../shared/status.service';
 
 @Component({
     selector: 'qr',
@@ -13,13 +14,19 @@ import { SwipeGestureEventData } from 'tns-core-modules/ui/gestures/gestures';
 export class QrComponent implements OnInit {
 
     visitation: Visitation;
+    isInfected: boolean;
+
     constructor(private barcodeScanner: BarcodeScanner,
                 private pageService: PageService,
                 private visitationsService: VisitationsService,
-                private deviceInformationService: DeviceInformationService) {}
+                private deviceInformationService: DeviceInformationService,
+                private statusService: StatusService) {}
 
     ngOnInit(): void {
-        // Use the "ngOnInit" handler to initialize data for the view.
+        this.statusService.getStatus(this.deviceInformationService.getDeviceImei()).subscribe(
+            (data) => this.isInfected = data,
+            (error) => console.error(error)
+        );
     }
 
     onScan() {

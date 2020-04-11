@@ -1,0 +1,12 @@
+@import '../../_app-common.scss';
+
+.icon {
+    vertical-align: center;
+    horizontal-align: center;
+    font-size: 200;
+    color: $primary;
+}
+
+.icon.infected {
+    color: $infected;
+}

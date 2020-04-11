@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { StatusService } from '../shared/status.service';
+import { DeviceInformationService } from '../shared/deviceInformation.service';
 
 @Component({
     selector: 'info',
@@ -6,11 +8,15 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./info.component.scss']
 })
 export class InfoComponent implements OnInit {
-    constructor() {
-        // Use the component constructor to inject providers.
-    }
+
+    isInfected: boolean;
+
+    constructor(private statusService: StatusService, private deviceInformationService: DeviceInformationService) {}
 
     ngOnInit(): void {
-        // Use the "ngOnInit" handler to initialize data for the view.
+        this.statusService.getStatus(this.deviceInformationService.getDeviceImei()).subscribe(
+            (data) => this.isInfected = data,
+            (error) => console.error(error)
+        );
     }
 }

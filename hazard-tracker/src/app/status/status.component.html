@@ -1,8 +1,8 @@
-<ActionBar>
-    <Label text="Status"></Label>
+<ActionBar [ngClass]="{infected: isInfected}">
+    <Label *ngIf="!isInfected" text="You have not been exposed to infection"></Label>
+    <Label *ngIf="isInfected" text="You may have been infected"></Label>
 </ActionBar>
 
 <GridLayout class="page__content">
-    <Label class="page__content-icon fas" text="&#xf004;"></Label>
-    <Label class="page__content-placeholder" text="<!-- Page content goes here -->"></Label>
+    <Label [ngClass]="{icon: true, fas: true, infected: isInfected}" text="&#xf004;"></Label>
 </GridLayout>

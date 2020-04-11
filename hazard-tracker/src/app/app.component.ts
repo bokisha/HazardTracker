@@ -9,6 +9,7 @@ import { screen } from 'tns-core-modules/platform';
 import { PageService } from './shared/page.service';
 import { UsersService } from './shared/users.service';
 import * as applicationSettings from 'tns-core-modules/application-settings';
+import { StatusService } from './shared/status.service';
 
 const firebase = require('nativescript-plugin-firebase');
 
@@ -21,6 +22,7 @@ export class AppComponent implements OnInit {
     screenHeight: number;
     screenWidth: number;
     imei: string;
+    isInfected: boolean;
 
     private _selectedPage: number;
 
@@ -42,9 +44,16 @@ export class AppComponent implements OnInit {
 
     constructor(private pageService: PageService,
                 private usersService: UsersService,
-                private deviceInformationService: DeviceInformationService) { }
+                private deviceInformationService: DeviceInformationService,
+                private statusService: StatusService) { }
 
     ngOnInit(): void {
+
+        this.statusService.getStatus(this.deviceInformationService.getDeviceImei()).subscribe(
+            (data) => this.isInfected = data,
+            (error) => console.error(error)
+        );
+
         this.imei = this.deviceInformationService.getDeviceImei();
         console.log('IMEI: ' + this.imei);
 

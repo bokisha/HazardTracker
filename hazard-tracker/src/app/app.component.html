@@ -4,7 +4,7 @@
             <TabStrip>
                 <!-- App Info -->
                 <TabStripItem class="navigation__item">
-                    <Image src="font://&#xf05a;" class="fas t-36"></Image>
+                    <Image src="font://&#xf05a;" [ngClass]="{infected: isInfected, fas: true, 't-36': true}"></Image>
                 </TabStripItem>
                 <!-- Map -->
                 <!-- <TabStripItem class="navigation__item">
@@ -12,19 +12,19 @@
                 </TabStripItem> -->
                 <!-- Status -->
                 <TabStripItem class="navigation__item">
-                    <Image src="font://&#xf004;" class="fas t-36"></Image>
+                    <Image src="font://&#xf004;" [ngClass]="{infected: isInfected, fas: true, 't-36': true}"></Image>
                 </TabStripItem>
                 <!-- QR -->
                 <TabStripItem class="navigation__item">
-                    <Image src="font://&#xf029;" class="fas t-36"></Image>
+                    <Image src="font://&#xf029;" [ngClass]="{infected: isInfected, fas: true, 't-36': true}"></Image>
                 </TabStripItem>
                 <!-- Visits -->
                 <TabStripItem class="navigation__item">
-                    <Image src="font://&#xf3c5;" class="fas t-36"></Image>
+                    <Image src="font://&#xf3c5;" [ngClass]="{infected: isInfected, fas: true, 't-36': true}"></Image>
                 </TabStripItem>
                 <!-- Notifications -->
                 <TabStripItem class="navigation__item">
-                    <Image src="font://&#xf0f3;" class="fas t-36"></Image>
+                    <Image src="font://&#xf0f3;" [ngClass]="{infected: isInfected, fas: true, 't-36': true}"></Image>
                 </TabStripItem>
             </TabStrip>
 
@@ -55,6 +55,6 @@
     </GridLayout>
 
     <GridLayout [top]="screenHeight - 210" [left]="screenWidth - 90">
-        <Button class="add-hazard fas" text="&#xf0f1;" (tap)="addHazard()"></Button>
+        <Button [ngClass]="{infected: isInfected, 'add-hazard': true, fas: true}" text="&#xf0f1;" (tap)="addHazard()"></Button>
     </GridLayout>
 </AbsoluteLayout>

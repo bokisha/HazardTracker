@@ -1,6 +1,9 @@
 @import "~@nativescript/theme/core";
 @import "~@nativescript/theme/blue";
 
+$primary: #78d5ff;
+$infected: #ff7878;
+
 // Place any CSS rules you want to apply on both iOS and Android here.
 // This is where the vast majority of your CSS code goes.
 
@@ -20,11 +23,24 @@
     font-weight: 400;
 }
 
+.infected {
+    background-color: $infected;
+}
+
+ActionBar {
+    background-color: $primary;
+}
+
 // Custom tabstrip item class
 .navigation__item {
     &:active,
     &:active Label {
-        @include colorize($contrasted-color: complementary background 20% 0%);
+        @include colorize($primary: complementary background 20% 0%);
+    }
+
+    &:active.infected,
+    &:active Label.infected {
+        @include colorize($infected: complementary background 20% 0%);
     }
 }
 
@@ -60,11 +76,16 @@
     width: 55;
     height: 55;
     font-size: 20;
-    background-color: const(blue);
+    background-color: $primary;
     color: white;
 }
 
 .add-hazard:active {
     background-color: white;
-    color: const(blue);
+    color: $primary;
+}
+
+.add-hazard.infected:active {
+    background-color: white;
+    color: $infected;
 }

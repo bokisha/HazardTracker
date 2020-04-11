@@ -1,22 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { StatusService } from '../shared/status.service';
-import { User } from '../shared/users.service';
+import { DeviceInformationService } from '../shared/deviceInformation.service';
 
 @Component({
     selector: 'status',
-    templateUrl: './status.component.html'
+    templateUrl: './status.component.html',
+    styleUrls: ['./status.component.scss']
 })
 export class StatusComponent implements OnInit {
     isInfected: boolean;
 
-    constructor(private statusService: StatusService) {}
+    constructor(private statusService: StatusService, private imeiService: DeviceInformationService) {}
 
     ngOnInit(): void {
-        // Use the "ngOnInit" handler to initialize data for the view.
-    }
-
-    getStatus(imei: string) {
-        this.statusService.getStatus(imei).subscribe(
+        this.statusService.getStatus(this.imeiService.getDeviceImei()).subscribe(
             (data) => this.isInfected = data,
             (error) => console.error(error)
         );

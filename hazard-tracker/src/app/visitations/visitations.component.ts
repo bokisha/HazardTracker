@@ -5,6 +5,7 @@ import { Location } from '../shared/locations.service';
 import { VisitationsService, Visitation } from '../shared/visitations.service';
 import { SwipeGestureEventData } from 'tns-core-modules/ui/gestures/gestures';
 import { PageService } from '../shared/page.service';
+import { StatusService } from '../shared/status.service';
 
 @Component({
     selector: 'visitations',
@@ -13,14 +14,20 @@ import { PageService } from '../shared/page.service';
 export class VisitationsComponent implements OnInit {
 
     imei: string;
+    isInfected: boolean;
 
     visitations: Array<Visitation> = new Array<Visitation>();
     visitedLocations: Array<Location> =  new Array<Location>();
 
     constructor(private visitationsService: VisitationsService,
                 private pageService: PageService,
-                private deviceInformationService: DeviceInformationService) {
+                private deviceInformationService: DeviceInformationService,
+                private statusService: StatusService) {
         this.imei = this.deviceInformationService.getDeviceImei();
+        this.statusService.getStatus(this.deviceInformationService.getDeviceImei()).subscribe(
+            (data) => this.isInfected = data,
+            (error) => console.error(error)
+        );
     }
 
     ngOnInit(): void {

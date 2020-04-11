@@ -16,6 +16,10 @@ export class StatusService {
                 private baseUrl: ApiService) { }
 
     getStatus(imei: string): Observable<boolean> {
-        return this.http.get<boolean>(this.baseUrl.getBaseUrl() + this.apiLocation + 'getStatus/' + imei);
+        return interval(1000).pipe(
+            switchMap(() => {
+                return this.http.get<boolean>(this.baseUrl.getBaseUrl() + this.apiLocation + 'getStatus/' + imei);
+            })
+        );
     }
 }

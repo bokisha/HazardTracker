@@ -8,7 +8,7 @@ using DAL.Repositories.Interfaces;
 using CorePush.Google;
 using System.Linq;
 using System;
-using Newtonsoft.Json;
+using FirebaseAdmin.Messaging;
 
 namespace HazardTrackerServer.Controllers
 {
@@ -121,33 +121,20 @@ namespace HazardTrackerServer.Controllers
         {
             using (var fcm = new FcmSender(ServerKey, SenderId))
             {
-                var notification = new GoogleNotification
+                Notification notification = new Notification()
                 {
-                    Data = new GoogleNotification.DataPayload
-                    {
-                        Message = $"You have been hazarded! {DateTime.Now}"
-                    }
+                    Title = "Warning",
+                    Body = $"You have been exposed! {DateTime.Now}"
                 };
+
+
+                Message message = new Message() { Notification = notification};
 
                 foreach (var user in users)
                 {
-                    await fcm.SendAsync(user.DeviceToken, notification);
+                    await fcm.SendAsync(user.DeviceToken, message);
                 }
             }
         }
-    }
-
-    public class GoogleNotification
-    {
-        public class DataPayload
-        {
-            // Add your custom properties as needed
-            [JsonProperty("message")]
-            public string Message { get; set; }
-        }
-        [JsonProperty("priority")]
-        public string Priority { get; set; } = "high";
-        [JsonProperty("data")]
-        public DataPayload Data { get; set; }
     }
 }

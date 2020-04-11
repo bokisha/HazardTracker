@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core';
 
 import { SwipeGestureEventData, SwipeDirection } from 'tns-core-modules/ui/gestures';
 import { alert, prompt, PromptResult, PromptOptions, inputType, capitalizationType, confirm } from 'tns-core-modules/ui/dialogs';
-import { Message } from 'nativescript-plugin-firebase/messaging';
+import { Message, messaging } from 'nativescript-plugin-firebase/messaging';
 import { screen } from 'tns-core-modules/platform';
 
 import { PageService } from './shared/page.service';
 import { UsersService } from './shared/users.service';
+import * as applicationSettings from "tns-core-modules/application-settings";
 
 const firebase = require('nativescript-plugin-firebase');
 
@@ -48,17 +49,6 @@ export class AppComponent implements OnInit {
         console.log('IMEI: ' + this.imei);
 
         firebase.init({
-            onMessageReceivedCallback: (message: Message) => {
-                alert({
-                    message: message.data.message,
-                    okButtonText: 'OK'
-                });
-            },
-            onPushTokenReceivedCallback: (token) => {
-                this.usersService.postToken(this.imei, token);
-                console.log('token ' + token);
-            },
-            showNotificationsWhenInForeground: true
         }).then(
             () => {
                 console.log('firebase.init done');
@@ -67,6 +57,35 @@ export class AppComponent implements OnInit {
                 console.log(`firebase.init error: ${error}`);
             }
         );
+        
+        applicationSettings.setBoolean("APP_REGISTERED_FOR_NOTIFICATIONS", true);
+        messaging.registerForPushNotifications({
+            onPushTokenReceivedCallback: (token: string): void => {
+                this.usersService.postToken(this.imei, token);
+                console.log('messaging token ' + token);
+            },
+      
+            onMessageReceivedCallback: (message: Message) => {
+                console.log('Messaging message ' + message);
+      
+              setTimeout(() => {
+                alert({
+                  title: message.title,
+                  message: (message !== undefined && message.body !== undefined ? message.body : ""),
+                  okButtonText: "Ok"
+                });
+              }, 500);
+            },
+      
+            showNotifications: true,
+      
+            // Whether you want this plugin to always handle the notifications when the app is in foreground.
+            // Currently used on iOS only. Default false.
+            // When false, you can still force showing it when the app is in the foreground by adding 'showWhenInForeground' to the notification as mentioned in the readme.
+            showNotificationsWhenInForeground: false
+          })
+              .then(() => console.log(">>>> Registered for push"))
+              .catch(err => console.log(">>>> Failed to register for push"));
 
         this._selectedPage = 2;
 

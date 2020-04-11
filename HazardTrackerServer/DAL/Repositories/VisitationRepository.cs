@@ -2,6 +2,7 @@
 using System.Linq;
 using DAL.Entities;
 using DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
@@ -13,7 +14,9 @@ namespace DAL.Repositories
 
         public IEnumerable<VisitationEntity> GetAllVisitationsForImei(string Imei)
         {
-            IQueryable<VisitationEntity> visitationsForImei = DbSet.Where(v => v.Imei == Imei);
+            IQueryable<VisitationEntity> visitationsForImei = DbSet
+                .Include(v => v.Location)
+                .Where(v => v.Imei == Imei);
             return visitationsForImei.ToList();
         }
 
